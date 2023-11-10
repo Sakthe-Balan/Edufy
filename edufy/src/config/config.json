@@ -1,0 +1,47 @@
+{
+  "site": {
+    "title": "Edufy",
+    "base_url": "https://edu-fy.netlify.app",
+    "base_path": "/",
+    "trailing_slash": false,
+    "favicon": "/images/favicon.png",
+    "logo": "/images/logo.png",
+    "logo_darkmode": "/images/logo-darkmode.png",
+    "logo_width": "150",
+    "logo_height": "27",
+    "logo_text": "Edufy"
+  },
+
+  "settings": {
+    "search": true,
+    "sticky_header": true,
+    "theme_switcher": true,
+    "default_theme": "system",
+    "pagination": 2,
+    "summary_length": 200,
+    "blog_folder": "student_blog"
+  },
+
+  "params": {
+    "contact_form_action": "#",
+    "copyright": "Designed And Developed by [Your Company Name](https://yourcompanywebsite.com)"
+  },
+
+  "Signup": {
+    "enable": true,
+    "label": "Sign Up",
+    "link": "/signup"
+  },
+
+  "disqus": {
+    "enable": true,
+    "shortname": "edufy-comments",
+    "settings": {}
+  },
+
+  "metadata": {
+    "meta_author": "Your Name",
+    "meta_image": "/images/og-image.png",
+    "meta_description": "Track your academic and professional journey with Edufy."
+  }
+}
