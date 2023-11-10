@@ -1,0 +1,11 @@
+<LibraryData>
+  <Books>
+   <Book>
+      <BookID>5</BookID>
+      <Title>The Catcher in the Rye</Title>
+      <Author>J.D. Salinger</Author>
+      <Price>9.99</Price>
+      <Quantity>1</Quantity>
+    </Book>
+  </Books>
+</LibraryData>

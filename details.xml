@@ -1,0 +1,66 @@
+<LibraryData>
+  <Books>
+    <Book>
+      <BookID>1</BookID>
+      <Title>Harry Potter and the Sorcerer's Stone</Title>
+      <Author>J.K. Rowling</Author>
+      <Price>19.99</Price>
+      <Quantity>10</Quantity>
+    </Book>
+    <Book>
+      <BookID>2</BookID>
+      <Title>To Kill a Mockingbird</Title>
+      <Author>Harper Lee</Author>
+      <Price>15.00</Price>
+      <Quantity>5</Quantity>
+    </Book>
+    <Book>
+      <BookID>3</BookID>
+      <Title>The Great Gatsby</Title>
+      <Author>F. Scott Fitzgerald</Author>
+      <Price>12.50</Price>
+      <Quantity>8</Quantity>
+    </Book>
+    <Book>
+      <BookID>4</BookID>
+      <Title>Nineteen Eighty-Four</Title>
+      <Author>George Orwell</Author>
+      <Price>10.00</Price>
+      <Quantity>2</Quantity>
+    </Book>
+    <Book>
+      <BookID>5</BookID>
+      <Title>The Catcher in the Rye</Title>
+      <Author>J.D. Salinger</Author>
+      <Price>9.99</Price>
+      <Quantity>3</Quantity>
+    </Book>
+  </Books>
+  <Users>
+    <User>
+      <Username>user1</Username>
+      <Password>password1</Password>
+    </User>
+    <User>
+      <Username>user2</Username>
+      <Password>password2</Password>
+    </User>
+  </Users>
+  <Carts>
+    <CartItem>
+      <UserID>1</UserID>
+      <BookID>3</BookID>
+      <Quantity>2</Quantity>
+    </CartItem>
+    <CartItem>
+      <UserID>2</UserID>
+      <BookID>1</BookID>
+      <Quantity>1</Quantity>
+    </CartItem>
+    <CartItem>
+      <UserID>1</UserID>
+      <BookID>4</BookID>
+      <Quantity>3</Quantity>
+    </CartItem>
+  </Carts>
+</LibraryData>
