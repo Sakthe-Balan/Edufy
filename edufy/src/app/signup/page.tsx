@@ -1,6 +1,7 @@
 'use client'
 import React, { useState } from 'react';
 import Link from 'next/link';
+import { FormEvent } from 'react';
 
 const UserForm = () => {
   const [isAdmin, setIsAdmin] = useState(false);
@@ -20,12 +21,12 @@ const UserForm = () => {
     setUserData({ ...userData, srn: '' });
   };
 
-  const handleChange = (e) => {
+  const handleChange = (e: FormEvent<HTMLFormElement>) => {
     const { name, value } = e.target;
     setUserData({ ...userData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // Handle form submission logic here
     console.log('Form submitted:', userData);

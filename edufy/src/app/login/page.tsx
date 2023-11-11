@@ -1,6 +1,7 @@
 'use client'
 // Import necessary dependencies
 import React, { useState } from 'react';
+import { FormEvent } from 'react';
 
 // Create the Login component
 const LoginForm = () => {
@@ -12,7 +13,8 @@ const LoginForm = () => {
   const [isAdmin, setIsAdmin] = useState(false);
 
   // Handle changes in the form inputs
-  const handleChange = (e) => {
+  const handleChange = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     const { name, value } = e.target;
     setLoginData({ ...loginData, [name]: value });
   };
@@ -23,10 +25,11 @@ const LoginForm = () => {
   };
 
   // Handle form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // Handle login logic here
     console.log('Login submitted:', loginData, 'Admin:', isAdmin);
+
     // Reset form fields after submission if needed
     setLoginData({ email: '', password: '' });
     setIsAdmin(false);
@@ -94,3 +97,8 @@ const LoginForm = () => {
 };
 
 export default LoginForm;
+
+
+{/* <Link href={`/blog/${encodeURIComponent(post.slug)}`}>
+            {post.title}
+          </Link> */}

@@ -37,7 +37,7 @@ const Header = () => {
 
   return (
     <header
-      className={`header z-30 ${settings.sticky_header && "sticky top-0 bg-slate-400"}`}
+      className={`header z-30 ${settings.sticky_header && "sticky top-0 bg-trueGray-400"}`}
     >
       <nav className="navbar container">
         {/* logo */}

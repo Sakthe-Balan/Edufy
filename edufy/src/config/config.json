@@ -6,9 +6,9 @@
     "trailing_slash": false,
     "favicon": "/images/favicon.png",
     "logo": "/images/logo.png",
-    "logo_darkmode": "/images/logo-darkmode.png",
-    "logo_width": "150",
-    "logo_height": "27",
+    "logo_darkmode": "/images/logo.png",
+    "logo_width": "130",
+    "logo_height": "40",
     "logo_text": "Edufy"
   },
 

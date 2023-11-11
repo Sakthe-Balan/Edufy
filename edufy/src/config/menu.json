@@ -49,6 +49,10 @@
     {
       "name": "Privacy Policy",
       "url": "/privacy-policy"
+    },
+    {
+      "name": "Contact Us",
+      "url": "/contact"
     }
   ]
 }
