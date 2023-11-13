@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { FormEvent } from 'react';
 
-// ... (Your existing imports)
+
 
 const MainForm = () => {
   const [isPlacement, setIsPlacement] = useState(false);
@@ -10,11 +10,13 @@ const MainForm = () => {
   const [userData, setUserData] = useState({
     srn: '',
     company_name: '',
+    test_experience:'',
     summer_intern_placement: '',
     interview_selected: false,
     interview_date: '',
     interview_experience: '',
     ctc: '',
+    qualified: false,
     applied_for_masters: false,
     university_name: '',
     program_name: '',
@@ -61,7 +63,7 @@ const MainForm = () => {
       <h1 className="text-3xl font-bold mb-4 mx-auto max-w-md">Contribute</h1>
 
       <form onSubmit={handleSubmit} className="max-w-md mx-auto p-4 border rounded-md">
-        {/* ... (Your existing form fields) */}
+        
 
         <div className="mb-4">
           <label>
@@ -76,7 +78,7 @@ const MainForm = () => {
           </label>
         </div>
 
-        {isPlacement && (
+        
           <div className="mb-4">
             <label>
               Company Name:
@@ -89,7 +91,19 @@ const MainForm = () => {
               />
             </label>
           </div>
-        )}
+          
+          <div className="mb-4">
+              <label>
+                Test Experience:
+                <input
+                  type="text"
+                  name="test_experience"
+                  value={userData.test_experience}
+                  onChange={handleChange}
+                  className="w-full p-2 border rounded-md"
+                />
+              </label>
+            </div>
 
         <div className="mb-4">
           <label>
@@ -141,6 +155,18 @@ const MainForm = () => {
                 />
               </label>
             </div>
+            <div className="mb-4">
+              <label>
+                Qualified:
+                <input
+                  type="checkbox"
+                  name="qualified"
+                  checked={userData.qualified}
+                  onChange={() => handleCheckboxChange('qualified')}
+                />
+              </label>
+            </div>
+
           </>
         )}
 
