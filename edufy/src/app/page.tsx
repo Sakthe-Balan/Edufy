@@ -1,3 +1,4 @@
+import React from 'react';
 import ImageFallback from "@/helpers/ImageFallback";
 import { getListPage } from "@/lib/contentParser";
 import { markdownify } from "@/lib/utils/textConverter";
@@ -6,6 +7,7 @@ import SeoMeta from "@/partials/SeoMeta";
 import Testimonials from "@/partials/Testimonials";
 import { Button, Feature } from "@/types";
 import { FaCheck } from "react-icons/fa/index.js";
+import { motion } from 'framer-motion';
 
 const Home = () => {
   const homepage = getListPage("homepage/_index.md");
@@ -22,8 +24,8 @@ const Home = () => {
 
   return (
     <>
-      {/* <SeoMeta /> */}
-      <section className="section pt-14">
+      <SeoMeta />
+      
         <div className="container">
           <div className="row justify-center">
             <div className="mb-16 text-center lg:col-7">
@@ -55,13 +57,10 @@ const Home = () => {
             )}
           </div>
         </div>
-      </section>
+    
 
       {features.map((feature, index: number) => (
-        <section
-          key={index}
-          className={`section-sm ${index % 2 === 0 && "bg-gradient"}`}
-        >
+        
           <div className="container">
             <div className="row items-center justify-between">
               <div
@@ -108,7 +107,7 @@ const Home = () => {
               </div>
             </div>
           </div>
-        </section>
+      
       ))}
 
       <Testimonials data={testimonial} />
