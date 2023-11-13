@@ -61,7 +61,7 @@ const Home = () => {
 
       {features.map((feature, index: number) => (
         
-          <div className="container">
+          <div className="container" key={index}>
             <div className="row items-center justify-between">
               <div
                 className={`mb:md-0 mb-6 md:col-5 ${

@@ -1,16 +1,34 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState , ChangeEvent } from 'react';
 import { FormEvent } from 'react';
 
 
 
+type UserData = {
+  srn: string;
+  company_name: string;
+  test_experience: string;
+  summer_intern_placement: string;
+  interview_selected: boolean;
+  interview_date: string;
+  interview_experience: string;
+  ctc: string;
+  qualified: boolean;
+  applied_for_masters: boolean;
+  university_name: string;
+  program_name: string;
+  joined_masters: boolean;
+};
+
+type UserDataWithIndexSignature = UserData & { [key: string]: any };
+
 const MainForm = () => {
   const [isPlacement, setIsPlacement] = useState(false);
   const [isMasters, setIsMasters] = useState(false);
-  const [userData, setUserData] = useState({
+  const [userData, setUserData] = useState<UserDataWithIndexSignature>({
     srn: '',
     company_name: '',
-    test_experience:'',
+    test_experience: '',
     summer_intern_placement: '',
     interview_selected: false,
     interview_date: '',
@@ -24,7 +42,7 @@ const MainForm = () => {
   });
 
   const handleCheckboxChange = (key: string) => {
-    setUserData({ ...userData, [key]: !userData[key] });
+    setUserData((prevUserData) => ({ ...prevUserData, [key]: !prevUserData[key] }));
 
     // Handle conditional rendering based on user responses
     if (key === 'interview_selected') {
@@ -34,8 +52,8 @@ const MainForm = () => {
     }
   };
 
-  const handleChange = (e: FormEvent<HTMLFormElement>) => {
-    const { name, value } = e.target;
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target ; 
 
     // If it's a checkbox, handle it separately
     if (name === 'interview_selected' || name === 'applied_for_masters' || name === 'joined_masters') {

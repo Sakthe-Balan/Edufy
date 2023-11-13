@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react';
+import React, { useState,ChangeEvent } from 'react';
 import Link from 'next/link';
 import { FormEvent } from 'react';
 
@@ -21,7 +21,7 @@ const UserForm = () => {
     setUserData({ ...userData, srn: '' });
   };
 
-  const handleChange = (e: FormEvent<HTMLFormElement>) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setUserData({ ...userData, [name]: value });
   };

@@ -1,6 +1,6 @@
 'use client'
 // Import necessary dependencies
-import React, { useState } from 'react';
+import React, { useState ,ChangeEvent} from 'react';
 import { FormEvent } from 'react';
 
 // Create the Login component
@@ -13,7 +13,7 @@ const LoginForm = () => {
   const [isAdmin, setIsAdmin] = useState(false);
 
   // Handle changes in the form inputs
-  const handleChange = (e: FormEvent<HTMLFormElement>) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     const { name, value } = e.target;
     setLoginData({ ...loginData, [name]: value });
