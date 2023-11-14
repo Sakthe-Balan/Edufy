@@ -4,7 +4,7 @@
 
 Edufy is a web platform built with Next.js, facilitating the exchange of information among students regarding their academic and professional journeys. Whether you're looking for insights into summer internships, job placements, or the pursuit of a master's degree, Edufy, powered by Next.js, is your go-to destination for connecting with like-minded peers.
 
-![Edufy](edufy.png)
+![Edufy](/edufy.png)
 
 ## Features
 
