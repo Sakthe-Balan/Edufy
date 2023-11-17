@@ -1,65 +1,51 @@
 "use client";
-import React, { useState, ChangeEvent } from "react";
+import React, { useState, ChangeEvent, FormEvent } from "react";
 import Link from "next/link";
-import { FormEvent } from "react";
 
 const UserForm = () => {
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [userData, setUserData] = useState({
-    name: "",
-    email: "",
-    srn: "",
-    phone_number: "",
-    dob: "",
-    department_id: "",
-    password: "",
-  });
+  const [isAdmin, setisAdmin] = useState(false);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [srn, setSRN] = useState("");
+  const [phone_number, setPhoneNumber] = useState("");
+  const [dob, setDOB] = useState("");
+  const [department_id, setDepartmentID] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleCheckboxChange = () => {
-    setIsAdmin(!isAdmin);
+    setisAdmin(!isAdmin);
     // If you want to clear the srn field when isAdmin is checked, you can add the following line:
-    setUserData({ ...userData, srn: "" });
+    setSRN("");
   };
-
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setUserData({ ...userData, [name]: value });
-  };
-
-  // ...
-
-  // Handle form submission
-  // ...
-
-  // Handle form submission
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
+      const requestBody = {
+        isAdmin,
+        name,
+        email,
+        srn,
+        phone_number,
+        dob,
+        department_id,
+        password,
+      };
+      console.log(requestBody);
       const response = await fetch("http://localhost:9090/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(
-          isAdmin
-            ? {
-                name: userData.name,
-                isAdmin: true,
-                email: userData.email,
-                password: userData.password,
-              }
-            : { ...userData, isAdmin: false },
-        ),
+        body: JSON.stringify(requestBody),
       });
-
+      console.log(response);
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
 
       const data = await response.json();
-      console.log(userData);
       console.log("Form submitted successfully:", data);
       // Optionally, you can perform additional actions after successful submission
     } catch (error) {
@@ -67,10 +53,6 @@ const UserForm = () => {
       // Optionally, you can handle errors or display an error message to the user
     }
   };
-
-  // ...
-
-  // ...
 
   return (
     <>
@@ -86,8 +68,8 @@ const UserForm = () => {
             <input
               type="text"
               name="name"
-              value={userData.name}
-              onChange={handleChange}
+              value={name}
+              onChange={(e) => setName(e.target.value)}
               className="w-full p-2 border rounded-md"
             />
           </label>
@@ -98,8 +80,8 @@ const UserForm = () => {
             <input
               type="email"
               name="email"
-              value={userData.email}
-              onChange={handleChange}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               className="w-full p-2 border rounded-md"
             />
           </label>
@@ -111,8 +93,8 @@ const UserForm = () => {
               <input
                 type="text"
                 name="srn"
-                value={userData.srn}
-                onChange={handleChange}
+                value={srn}
+                onChange={(e) => setSRN(e.target.value)}
                 className="w-full p-2 border rounded-md"
               />
             </label>
@@ -124,8 +106,8 @@ const UserForm = () => {
             <input
               type="text"
               name="phone_number"
-              value={userData.phone_number}
-              onChange={handleChange}
+              value={phone_number}
+              onChange={(e) => setPhoneNumber(e.target.value)}
               className="w-full p-2 border rounded-md"
             />
           </label>
@@ -136,8 +118,8 @@ const UserForm = () => {
             <input
               type="text"
               name="dob"
-              value={userData.dob}
-              onChange={handleChange}
+              value={dob}
+              onChange={(e) => setDOB(e.target.value)}
               className="w-full p-2 border rounded-md"
             />
           </label>
@@ -148,8 +130,8 @@ const UserForm = () => {
             <input
               type="number"
               name="department_id"
-              value={userData.department_id}
-              onChange={handleChange}
+              value={department_id}
+              onChange={(e) => setDepartmentID(e.target.value)}
               className="w-full p-2 border rounded-md"
             />
           </label>
@@ -160,8 +142,8 @@ const UserForm = () => {
             <input
               type="password"
               name="password"
-              value={userData.password}
-              onChange={handleChange}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               className="w-full p-2 border rounded-md"
             />
           </label>
