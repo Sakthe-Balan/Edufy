@@ -1,14 +1,14 @@
-'use client'
+"use client";
 // Import necessary dependencies
-import React, { useState ,ChangeEvent} from 'react';
-import { FormEvent } from 'react';
+import React, { useState, ChangeEvent } from "react";
+import { FormEvent } from "react";
 
 // Create the Login component
 const LoginForm = () => {
   // State for email, password, and admin checkbox
   const [loginData, setLoginData] = useState({
-    email: '',
-    password: '',
+    email: "",
+    password: "",
   });
   const [isAdmin, setIsAdmin] = useState(false);
 
@@ -25,20 +25,51 @@ const LoginForm = () => {
   };
 
   // Handle form submission
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  // ...
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Handle login logic here
-    console.log('Login submitted:', loginData, 'Admin:', isAdmin);
+
+    try {
+      const response = await fetch("http://localhost:9090/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: loginData.email,
+          password: loginData.password,
+          isAdmin: isAdmin,
+        }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log("Login successful:", data);
+        // Handle the successful login, such as redirecting the user or storing a token.
+      } else {
+        console.error("Login failed");
+        // Handle the login failure, such as displaying an error message.
+      }
+    } catch (error) {
+      console.error("Error during login:", error);
+      // Handle other errors that might occur during the login process.
+    }
 
     // Reset form fields after submission if needed
-    setLoginData({ email: '', password: '' });
+    setLoginData({ email: "", password: "" });
     setIsAdmin(false);
   };
+
+  // ...
 
   return (
     <>
       <h1 className="text-3xl font-bold mb-4 mx-auto max-w-md">Login</h1>
-      <form onSubmit={handleSubmit} className="max-w-md mx-auto p-4 border rounded-md">
+      <form
+        onSubmit={handleSubmit}
+        className="max-w-md mx-auto p-4 border rounded-md"
+      >
         <div className="mb-4">
           <label>
             Email:
@@ -98,7 +129,8 @@ const LoginForm = () => {
 
 export default LoginForm;
 
-
-{/* <Link href={`/blog/${encodeURIComponent(post.slug)}`}>
+{
+  /* <Link href={`/blog/${encodeURIComponent(post.slug)}`}>
             {post.title}
-          </Link> */}
+          </Link> */
+}
