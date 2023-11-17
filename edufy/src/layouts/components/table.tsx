@@ -1,16 +1,18 @@
 // MyTable.js
-import React, { useState } from 'react';
-import { useTable, useFilters } from 'react-table';
+import React, { useState } from "react";
+import { useTable, useFilters } from "react-table";
 
 interface MyTableProps {
   data: { [key: string]: any }[];
 }
 
 // Define a custom filter UI component
-function DefaultColumnFilter({ column: { filterValue, setFilter, filterFunction } }) {
+function DefaultColumnFilter({
+  column: { filterValue, setFilter, filterFunction },
+}) {
   return (
     <input
-      value={filterValue || ''}
+      value={filterValue || ""}
       onChange={(e) => setFilter(filterFunction(e.target.value))}
       placeholder="Filter..."
     />
@@ -20,7 +22,7 @@ function DefaultColumnFilter({ column: { filterValue, setFilter, filterFunction 
 function MyTable({ data }: MyTableProps) {
   // Ensure data is defined
   if (!data || data.length === 0) {
-    console.error('Invalid data structure:', data);
+    console.error("Invalid data structure:", data);
     return <p>No valid data available</p>;
   }
 
@@ -33,7 +35,7 @@ function MyTable({ data }: MyTableProps) {
         Filter: DefaultColumnFilter, // Add the filter UI component
         filterFunction: (value) => value, // Default filter function
       })),
-    [data]
+    [data],
   );
 
   const {
@@ -47,7 +49,10 @@ function MyTable({ data }: MyTableProps) {
 
   return (
     <div className="h-400 w-full overflow-auto">
-      <table {...getTableProps()} className="w-full border-collapse border border-gray-300">
+      <table
+        {...getTableProps()}
+        className="w-full border-collapse border border-gray-300"
+      >
         <thead>
           {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
@@ -56,8 +61,8 @@ function MyTable({ data }: MyTableProps) {
                   {...column.getHeaderProps()}
                   className="border-b bg-gray-200 p-2 text-center text-black justify-center"
                 >
-                  {column.render('Header')}
-                  <div>{column.canFilter ? column.render('Filter') : null}</div>
+                  {column.render("Header")}
+                  <div>{column.canFilter ? column.render("Filter") : null}</div>
                 </th>
               ))}
             </tr>
@@ -73,7 +78,7 @@ function MyTable({ data }: MyTableProps) {
                     {...cell.getCellProps()}
                     className="p-2  border-r border-gray-300 text-center"
                   >
-                    {cell.render('Cell')}
+                    {cell.render("Cell")}
                   </td>
                 ))}
               </tr>

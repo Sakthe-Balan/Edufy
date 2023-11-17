@@ -1,6 +1,9 @@
 "use client";
 // Import necessary dependencies
 import React, { useState, ChangeEvent } from "react";
+import Link from "next/link";
+import { useRouter } from "next/router";
+
 import { FormEvent } from "react";
 
 // Create the Login component
@@ -46,13 +49,15 @@ const LoginForm = () => {
       if (response.ok) {
         const data = await response.json();
         console.log("Login successful:", data);
-        // Handle the successful login, such as redirecting the user or storing a token.
+        window.location.href = `/profile/${data}`;
       } else {
         console.error("Login failed");
+        alert("Incorrect credentials");
         // Handle the login failure, such as displaying an error message.
       }
     } catch (error) {
       console.error("Error during login:", error);
+      alert("Incorrect credentials");
       // Handle other errors that might occur during the login process.
     }
 
@@ -78,7 +83,7 @@ const LoginForm = () => {
               name="email"
               value={loginData.email}
               onChange={handleChange}
-              className="w-full p-2 border rounded-md"
+              className="w-full p-2 border rounded-md text-black"
               required
             />
           </label>
@@ -91,7 +96,7 @@ const LoginForm = () => {
               name="password"
               value={loginData.password}
               onChange={handleChange}
-              className="w-full p-2 border rounded-md"
+              className="w-full p-2 border rounded-md text-black"
               required
             />
           </label>
@@ -128,9 +133,3 @@ const LoginForm = () => {
 };
 
 export default LoginForm;
-
-{
-  /* <Link href={`/blog/${encodeURIComponent(post.slug)}`}>
-            {post.title}
-          </Link> */
-}
