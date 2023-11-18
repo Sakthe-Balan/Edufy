@@ -50,6 +50,7 @@ const UserForm = () => {
 
       const data = await response.json();
       console.log("Form submitted successfully:", data);
+      window.location.href = `/login`;
       // Optionally, you can perform additional actions after successful submission
     } catch (error) {
       console.error("Error submitting form:", error);
@@ -177,9 +178,6 @@ const UserForm = () => {
             <button
               type="submit"
               className="text-white py-2 px-4 rounded-md cursor-pointer bg-blue-500"
-              onClick={() => {
-                window.location.href = `/login`;
-              }}
             >
               SignUp
             </button>

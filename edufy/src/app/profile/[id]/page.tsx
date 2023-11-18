@@ -326,150 +326,42 @@ function Page({ params }: { params: { id: string } }) {
           )}
           {!userData.IsAdmin && (
             <div>
-              <div className="mt-4">
+              <div className="mt-4 flex flex-row align-centre">
                 <button
-                  className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700"
+                  className="bg-blue-500 text-white px-4 py-2 rounded-xl hover:bg-blue-700"
                   onClick={() => {
                     window.location.href = `/contribution/${userData.SRN}`;
                   }}
                 >
-                  Contribute Placements/Interns
+                  Contribute Placements
                 </button>
-              </div>
-              <div className="mt-4">
                 <button
-                  className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700"
+                  className="bg-blue-500 text-white px-4 py-2 rounded-xl hover:bg-blue-700"
                   onClick={() => {
                     window.location.href = `/contributionmaster/${userData.SRN}`;
                   }}
                 >
                   Contribute Masters
                 </button>
-              </div>
-
-              <div className="mt-4">
                 <button
-                  className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700"
-                  onClick={async () => {
-                    try {
-                      const response = await fetch(
-                        "http://localhost:9090/allstudentplacementdetails",
-                      );
-
-                      if (response.ok) {
-                        const data = await response.json();
-                        setPlacementDetails(data.data);
-                      } else {
-                        console.error(
-                          "Failed to fetch all student placement details",
-                        );
-                      }
-                    } catch (error) {
-                      console.error("Error during fetch:", error);
-                      alert("An error occurred during fetch");
-                    }
-                  }}
-                >
-                  Get All Student Placement Details
-                </button>
-              </div>
-
-              {/* Display fetched placement details below the button */}
-              {placementDetails.length > 0 && (
-                <div className="mt-4">
-                  <h3 className="text-xl font-bold mb-2">
-                    All Student Placement Details
-                  </h3>
-                  <ul>
-                    {placementDetails.map((detail, index) => (
-                      <li key={index}>{JSON.stringify(detail)}</li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-
-              {/* Button to fetch and display total masters data */}
-              <div className="mt-4">
-                <button
-                  className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700"
-                  onClick={async () => {
-                    try {
-                      const response = await fetch(
-                        "http://localhost:9090/allstudentsuniversitydetails",
-                      );
-
-                      if (response.ok) {
-                        const data = await response.json();
-                        setTotalMastersData(data.data);
-                      } else {
-                        console.error("Failed to fetch total masters data");
-                      }
-                    } catch (error) {
-                      console.error("Error during fetch:", error);
-                      alert("An error occurred during fetch");
-                    }
-                  }}
-                >
-                  Get Total Masters Data
-                </button>
-              </div>
-
-              {/* Display fetched total masters data below the button */}
-              {totalMastersData.length > 0 && (
-                <div className="mt-4">
-                  <h3 className="text-xl font-bold mb-2">Total Masters Data</h3>
-                  <ul>
-                    {totalMastersData.map((detail, index) => (
-                      <li key={index}>{JSON.stringify(detail)}</li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-              {/* Button to fetch and display average salary data */}
-              <div className="mt-4">
-                <button
-                  className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700"
-                  onClick={async () => {
-                    try {
-                      const response = await fetch(
-                        "http://localhost:9090/findavgsalary",
-                      );
-
-                      if (response.ok) {
-                        const data = await response.json();
-                        setAvgSalaryData(data.average_salary);
-                      } else {
-                        console.error("Failed to fetch average salary data");
-                      }
-                    } catch (error) {
-                      console.error("Error during fetch:", error);
-                      alert("An error occurred during fetch");
-                    }
-                  }}
-                >
-                  Get Average Salary Data
-                </button>
-              </div>
-
-              {/* Display fetched average salary data below the button */}
-              {avgSalaryData !== null && (
-                <div className="mt-4">
-                  <h3 className="text-xl font-bold mb-2">
-                    Average Salary Data
-                  </h3>
-                  <p>{`Average Salary: ${avgSalaryData}`}</p>
-                </div>
-              )}
-              <div className="mt-4">
-                <button
-                  className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700"
+                  className="bg-blue-500 text-white px-4 py-2 rounded-xl hover:bg-blue-700"
                   onClick={() => {
-                    window.location.href = `/contributionmaster/${userData.SRN}`;
+                    window.location.href = `/table/1`;
                   }}
                 >
-                  total number of students placed .
+                  Show Placements
+                </button>
+                <button
+                  className="bg-blue-500 text-white px-4 py-2 rounded-xl hover:bg-blue-700"
+                  onClick={() => {
+                    window.location.href = `/table/2`;
+                  }}
+                >
+                  Show Masters
                 </button>
               </div>
+              <div className="mt-4"></div>
+
               <div className="mt-4">
                 <h3 className="text-xl font-bold mb-2 p-4">
                   Previous Contributions
@@ -501,6 +393,7 @@ function Page({ params }: { params: { id: string } }) {
           <p>{userData.Desc}</p>
         </div>
       </motion.div>
+
       <br />
       <br />
       <br />
