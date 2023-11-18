@@ -13,18 +13,12 @@ const LoginForm = () => {
     email: "",
     password: "",
   });
-  const [isAdmin, setIsAdmin] = useState(false);
 
   // Handle changes in the form inputs
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     const { name, value } = e.target;
     setLoginData({ ...loginData, [name]: value });
-  };
-
-  // Handle checkbox change
-  const handleCheckboxChange = () => {
-    setIsAdmin(!isAdmin);
   };
 
   // Handle form submission
@@ -42,7 +36,6 @@ const LoginForm = () => {
         body: JSON.stringify({
           email: loginData.email,
           password: loginData.password,
-          isAdmin: isAdmin,
         }),
       });
 
@@ -63,7 +56,6 @@ const LoginForm = () => {
 
     // Reset form fields after submission if needed
     setLoginData({ email: "", password: "" });
-    setIsAdmin(false);
   };
 
   // ...
@@ -108,15 +100,6 @@ const LoginForm = () => {
           >
             Login
           </button>
-          <label>
-            <input
-              type="checkbox"
-              className="mr-2"
-              checked={isAdmin}
-              onChange={handleCheckboxChange}
-            />
-            Admin
-          </label>
         </div>
       </form>
       <br />
