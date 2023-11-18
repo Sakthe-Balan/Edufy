@@ -174,14 +174,15 @@ const UserForm = () => {
             Admin
           </label>
           <div>
-            <a href="/login" className=" hover:underline cursor-pointer">
-              <button
-                type="submit"
-                className="text-white py-2 px-4 rounded-md cursor-pointer bg-blue-500"
-              >
-                SignUp
-              </button>
-            </a>
+            <button
+              type="submit"
+              className="text-white py-2 px-4 rounded-md cursor-pointer bg-blue-500"
+              onClick={() => {
+                window.location.href = `/login`;
+              }}
+            >
+              SignUp
+            </button>
           </div>
         </div>
       </form>

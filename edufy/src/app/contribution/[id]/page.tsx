@@ -1,23 +1,20 @@
-'use client';
-import React, { useState , ChangeEvent } from 'react';
-import { FormEvent } from 'react';
-
-
+"use client";
+import React, { useState, ChangeEvent, FormEvent } from "react";
 
 type UserData = {
   srn: string;
   company_name: string;
-  test_experience: string;
-  summer_intern_placement: string;
-  interview_selected: boolean;
-  interview_date: string;
-  interview_experience: string;
+  testexpr: string;
+  iorp: string;
+  selectedforint: boolean;
+  doi: string;
+  intexp: string;
   ctc: string;
-  qualified: boolean;
-  applied_for_masters: boolean;
-  university_name: string;
-  program_name: string;
-  joined_masters: boolean;
+  selected: boolean;
+  // applied_for_masters: boolean;
+  // university_name: string;
+  // program_name: string;
+  // joined_masters: boolean;
 };
 
 type UserDataWithIndexSignature = UserData & { [key: string]: any };
@@ -26,124 +23,182 @@ const MainForm = ({ params }: { params: { id: string } }) => {
   const [isPlacement, setIsPlacement] = useState(false);
   const [isMasters, setIsMasters] = useState(false);
   const [userData, setUserData] = useState<UserDataWithIndexSignature>({
-    srn: '',
-    company_name: '',
-    test_experience: '',
-    summer_intern_placement: '',
-    interview_selected: false,
-    interview_date: '',
-    interview_experience: '',
-    ctc: '',
-    qualified: false,
-    applied_for_masters: false,
-    university_name: '',
-    program_name: '',
-    joined_masters: false,
+    srn: params.id,
+    company_name: "",
+    testexpr: "",
+    iorp: "",
+    selectedforint: false,
+    doi: "",
+    intexp: "",
+    ctc: "",
+    selected: false,
   });
+  // applied_for_masters: false,
+  // university_name: "",
+  // program_name: "",
+  // joined_masters: false,
 
   const handleCheckboxChange = (key: string) => {
-    setUserData((prevUserData) => ({ ...prevUserData, [key]: !prevUserData[key] }));
+    setUserData((prevUserData) => ({
+      ...prevUserData,
+      [key]: !prevUserData[key],
+    }));
 
     // Handle conditional rendering based on user responses
-    if (key === 'interview_selected') {
-      setIsPlacement(!userData.interview_selected);
-    } else if (key === 'applied_for_masters') {
+    if (key === "selectedforint") {
+      setIsPlacement(!userData.selectedforint);
+    } else if (key === "applied_for_masters") {
       setIsMasters(userData.applied_for_masters);
     }
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target ; 
+    const { name, value, type } = e.target;
 
     // If it's a checkbox, handle it separately
-    if (name === 'interview_selected' || name === 'applied_for_masters' || name === 'joined_masters') {
+    if (type === "checkbox") {
       handleCheckboxChange(name);
     } else {
-      setUserData({ ...userData, [name]: value });
+      let updatedValue = value;
+
+      // Handle specific logic for iorp
+      if (name === "iorp") {
+        updatedValue = value.toLowerCase() === "summer" ? "1" : "2";
+        setIsPlacement(updatedValue === "2"); // Adjust conditional rendering
+      }
+
+      setUserData((prevUserData) => ({
+        ...prevUserData,
+        [name]: updatedValue,
+      }));
 
       // Handle conditional rendering based on user responses
-      if (name === 'summer_intern_placement') {
-        setIsPlacement(value.toLowerCase() === 'placement');
-      } else if (name === 'applied_for_masters') {
-        setIsMasters(value.toLowerCase() === 'yes');
+      if (name === "applied_for_masters") {
+        setIsMasters(updatedValue.toLowerCase() === "yes");
       }
     }
   };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Handle form submission logic here
-    console.log('Form submitted:', userData);
+    console.log(userData);
+    const putData = async () => {
+      try {
+        const response = await fetch(
+          "http://localhost:9090/addstudentplacements",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(userData),
+          },
+        );
+
+        if (response.ok) {
+          var data = await response.json();
+          console.log("successful updation:", data);
+          window.location.href = `/profile/${data.name} `;
+          // Assuming you have a navigation function or component
+          // that handles the redirection
+        } else {
+          console.error("update failed");
+        }
+      } catch (error) {
+        console.error("Error during upd:", error);
+        alert("An error occurred during upd");
+      }
+    };
+
+    // Call fetchData function
+    putData();
   };
 
   return (
     <>
       <h1 className="text-3xl font-bold mb-4 mx-auto max-w-md">Contribute</h1>
 
-      <form onSubmit={handleSubmit} className="max-w-md mx-auto p-4 border rounded-md">
-        
-
+      <form
+        onSubmit={handleSubmit}
+        className="max-w-md mx-auto p-4 border rounded-md"
+      >
         <div className="mb-4">
           <label>
             Summer Intern or Placement:
+            <div>
+              <label>
+                <input
+                  type="radio"
+                  name="iorp"
+                  value="summer"
+                  checked={userData.iorp === "1"}
+                  onChange={handleChange}
+                  className="mr-2"
+                />
+                Summer Intern
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  name="iorp"
+                  value="placement"
+                  checked={userData.iorp === "2"}
+                  onChange={handleChange}
+                  className="ml-4"
+                />
+                Placement
+              </label>
+            </div>
+          </label>
+        </div>
+
+        <div className="mb-4">
+          <label>
+            Company Name:
             <input
               type="text"
-              name="summer_intern_placement"
-              value={userData.summer_intern_placement}
+              name="company_name"
+              value={userData.company_name}
               onChange={handleChange}
               className="w-full p-2 border rounded-md"
             />
           </label>
         </div>
 
-        
-          <div className="mb-4">
-            <label>
-              Company Name:
-              <input
-                type="text"
-                name="company_name"
-                value={userData.company_name}
-                onChange={handleChange}
-                className="w-full p-2 border rounded-md"
-              />
-            </label>
-          </div>
-          
-          <div className="mb-4">
-              <label>
-                Test Experience:
-                <input
-                  type="text"
-                  name="test_experience"
-                  value={userData.test_experience}
-                  onChange={handleChange}
-                  className="w-full p-2 border rounded-md"
-                />
-              </label>
-            </div>
+        <div className="mb-4">
+          <label>
+            Test Experience:
+            <input
+              type="text"
+              name="testexpr"
+              value={userData.testexpr}
+              onChange={handleChange}
+              className="w-full p-2 border rounded-md"
+            />
+          </label>
+        </div>
 
         <div className="mb-4">
           <label>
             Interview Selected:
             <input
               type="checkbox"
-              name="interview_selected"
-              checked={userData.interview_selected}
-              onChange={() => handleCheckboxChange('interview_selected')}
+              name="selectedforint"
+              checked={userData.selectedforint}
+              onChange={() => handleCheckboxChange("selectedforint")}
             />
           </label>
         </div>
 
-        {userData.interview_selected && (
+        {userData.selectedforint && (
           <>
             <div className="mb-4">
               <label>
                 Interview Date:
                 <input
                   type="text"
-                  name="interview_date"
-                  value={userData.interview_date}
+                  name="doi"
+                  value={userData.doi}
                   onChange={handleChange}
                   className="w-full p-2 border rounded-md"
                 />
@@ -154,8 +209,8 @@ const MainForm = ({ params }: { params: { id: string } }) => {
                 Interview Experience:
                 <input
                   type="text"
-                  name="interview_experience"
-                  value={userData.interview_experience}
+                  name="intexp"
+                  value={userData.intexp}
                   onChange={handleChange}
                   className="w-full p-2 border rounded-md"
                 />
@@ -163,7 +218,7 @@ const MainForm = ({ params }: { params: { id: string } }) => {
             </div>
             <div className="mb-4">
               <label>
-                CTC/Stipend:
+                ctc/Stipend:
                 <input
                   type="text"
                   name="ctc"
@@ -175,27 +230,26 @@ const MainForm = ({ params }: { params: { id: string } }) => {
             </div>
             <div className="mb-4">
               <label>
-                Qualified:
+                selected:
                 <input
                   type="checkbox"
-                  name="qualified"
-                  checked={userData.qualified}
-                  onChange={() => handleCheckboxChange('qualified')}
+                  name="selected"
+                  checked={userData.selected}
+                  onChange={() => handleCheckboxChange("selected")}
                 />
               </label>
             </div>
-
           </>
         )}
 
-        <div className="mb-4">
+        {/* <div className="mb-4">
           <label>
             Applied for Masters:
             <input
               type="checkbox"
               name="applied_for_masters"
               checked={userData.applied_for_masters}
-              onChange={() => handleCheckboxChange('applied_for_masters')}
+              onChange={() => handleCheckboxChange("applied_for_masters")}
             />
           </label>
         </div>
@@ -233,15 +287,18 @@ const MainForm = ({ params }: { params: { id: string } }) => {
                   type="checkbox"
                   name="joined_masters"
                   checked={userData.joined_masters}
-                  onChange={() => handleCheckboxChange('joined_masters')}
+                  onChange={() => handleCheckboxChange("joined_masters")}
                 />
               </label>
             </div>
           </>
-        )}
+        )} */}
 
         <div className="flex justify-end">
-          <button type="submit" className="text-white py-2 px-4 rounded-md cursor-pointer bg-blue-500">
+          <button
+            type="submit"
+            className="text-white py-2 px-4 rounded-md cursor-pointer bg-blue-500"
+          >
             Submit
           </button>
         </div>
