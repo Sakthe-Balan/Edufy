@@ -18,7 +18,19 @@ function Page({ params }: { params: { id: string } }) {
     IDColumn: 0,
     Desc: "hello",
   };
-  var data = {};
+  var data = {IsAdmin: false,
+    CreatedAt: "2023-11-17T20:35:45.970676+05:30",
+    UpdatedAt: "2023-11-17T20:35:45.970676+05:30",
+    Deleted: null,
+    SRN: "PES1UG21CS031",
+    Name: "adithya ganesh",
+    Password: "1234",
+    Email: "adithyag020@gmail.com",
+    PhoneNumber: "8310271412",
+    DepartmentID: 0,
+    DOB: "07-10-2003",
+    IDColumn: 0,
+    Desc: "hello",};
   console.log(params.id);
   useEffect(() => {
     const fetchData = async () => {

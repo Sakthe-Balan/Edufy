@@ -22,7 +22,7 @@ type UserData = {
 
 type UserDataWithIndexSignature = UserData & { [key: string]: any };
 
-const MainForm = () => {
+const MainForm = ({ params }: { params: { id: string } }) => {
   const [isPlacement, setIsPlacement] = useState(false);
   const [isMasters, setIsMasters] = useState(false);
   const [userData, setUserData] = useState<UserDataWithIndexSignature>({
