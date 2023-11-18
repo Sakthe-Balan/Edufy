@@ -1,18 +1,56 @@
-'use client'
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+"use client";
+import React, { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 
-function Page({ params }: { params: { id: object } }) {
+function Page({ params }: { params: { id: string } }) {
   const initialUserData = {
-    isAdmin: true,
-    name: 'John Doe',
-    email: 'john.doe@example.com',
-    srn: 123456,
-    phone_number: '123-456-7890',
-    dob: '1990-01-01',
-    department_id: 1,
-    password: '********',
+    IsAdmin: false,
+    CreatedAt: "2023-11-17T20:35:45.970676+05:30",
+    UpdatedAt: "2023-11-17T20:35:45.970676+05:30",
+    Deleted: null,
+    SRN: "PES1UG21CS031",
+    Name: "adithya ganesh",
+    Password: "1234",
+    Email: "adithyag020@gmail.com",
+    PhoneNumber: "8310271412",
+    DepartmentID: 0,
+    DOB: "07-10-2003",
+    IDColumn: 0,
+    Desc: "hello",
   };
+  var data = {};
+  console.log(params.id);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("http://localhost:9090/getDetails", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: params.id,
+          }),
+        });
+
+        if (response.ok) {
+          data = await response.json();
+          console.log("Login successful:", data);
+          setUserData(data);
+          // Assuming you have a navigation function or component
+          // that handles the redirection
+        } else {
+          console.error("Login failed");
+        }
+      } catch (error) {
+        console.error("Error during reciv:", error);
+        alert("An error occurred during reciv");
+      }
+    };
+
+    // Call fetchData function
+    fetchData();
+  }, [params.id]);
 
   const [userData, setUserData] = useState(initialUserData);
   const [isEditing, setIsEditing] = useState(false);
@@ -23,8 +61,46 @@ function Page({ params }: { params: { id: object } }) {
   };
 
   const handleSaveClick = () => {
-    console.log('Updated User Data:', userData);
+    console.log("Updated User Data:", userData);
     setContributions([...contributions, JSON.stringify(userData)]);
+    const putData = async () => {
+      try {
+        const response = await fetch(
+          "http://localhost:9090/updatestudentprofile",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              name: userData.Name,
+              email: userData.Email,
+              srn: userData.SRN,
+              phone_number: userData.PhoneNumber,
+              dob: userData.DOB,
+              dept_id: userData.DepartmentID,
+              password: userData.Password,
+            }),
+          },
+        );
+
+        if (response.ok) {
+          data = await response.json();
+          console.log("successful updation:", data);
+
+          // Assuming you have a navigation function or component
+          // that handles the redirection
+        } else {
+          console.error("update failed");
+        }
+      } catch (error) {
+        console.error("Error during upd:", error);
+        alert("An error occurred during upd");
+      }
+    };
+
+    // Call fetchData function
+    putData();
     setIsEditing(false);
   };
 
@@ -52,66 +128,74 @@ function Page({ params }: { params: { id: object } }) {
               <div className="flex flex-wrap">
                 <div className="w-full md:w-1/2 lg:w-1/3 mb-2 pr-2">
                   <label>IsAdmin:</label>
-                  <input
+                  {/* <input
                     type="checkbox"
                     checked={userData.isAdmin}
-                    onChange={(e) => handleInputChange('isAdmin', e.target.checked)}
-                  />
+                    onChange={(e) =>
+                      handleInputChange("isAdmin", e.target.checked)
+                    }
+                  /> */}
                 </div>
                 <div className="w-full md:w-1/2 lg:w-1/3 mb-2 pr-2">
                   <label>Name:</label>
                   <input
                     type="text"
-                    value={userData.name}
-                    onChange={(e) => handleInputChange('name', e.target.value)}
+                    value={userData.Name}
+                    onChange={(e) => handleInputChange("Name", e.target.value)}
                   />
                 </div>
                 <div className="w-full md:w-1/2 lg:w-1/3 mb-2 pr-2">
                   <label>Email:</label>
                   <input
                     type="email"
-                    value={userData.email}
-                    onChange={(e) => handleInputChange('email', e.target.value)}
+                    value={userData.Email}
+                    onChange={(e) => handleInputChange("Email", e.target.value)}
                   />
                 </div>
                 <div className="w-full md:w-1/2 lg:w-1/3 mb-2 pr-2">
                   <label>SRN:</label>
-                  <input
+                  {/* <input
                     type="text"
-                    value={userData.srn}
-                    onChange={(e) => handleInputChange('srn', e.target.value)}
-                  />
+                    value={userData.SRN}
+                    onChange={(e) => handleInputChange("srn", e.target.value)}
+                  /> */}
                 </div>
                 <div className="w-full md:w-1/2 lg:w-1/3 mb-2 pr-2">
                   <label>Phone Number:</label>
                   <input
                     type="text"
-                    value={userData.phone_number}
-                    onChange={(e) => handleInputChange('phone_number', e.target.value)}
+                    value={userData.PhoneNumber}
+                    onChange={(e) =>
+                      handleInputChange("PhoneNumber", e.target.value)
+                    }
                   />
                 </div>
                 <div className="w-full md:w-1/2 lg:w-1/3 mb-2 pr-2">
                   <label>DOB:</label>
                   <input
-                    type="date"
-                    value={userData.dob}
-                    onChange={(e) => handleInputChange('dob', e.target.value)}
+                    type="text"
+                    value={userData.DOB}
+                    onChange={(e) => handleInputChange("DOB", e.target.value)}
                   />
                 </div>
                 <div className="w-full md:w-1/2 lg:w-1/3 mb-2 pr-2">
                   <label>Department ID:</label>
                   <input
                     type="text"
-                    value={userData.department_id}
-                    onChange={(e) => handleInputChange('department_id', e.target.value)}
+                    value={userData.DepartmentID}
+                    onChange={(e) =>
+                      handleInputChange("DepartmentID", e.target.value)
+                    }
                   />
                 </div>
                 <div className="w-full md:w-1/2 lg:w-1/3 mb-2 pr-2">
                   <label>Password:</label>
                   <input
                     type="password"
-                    value={userData.password}
-                    onChange={(e) => handleInputChange('password', e.target.value)}
+                    value={userData.Password}
+                    onChange={(e) =>
+                      handleInputChange("Password", e.target.value)
+                    }
                   />
                 </div>
               </div>
@@ -126,28 +210,28 @@ function Page({ params }: { params: { id: object } }) {
             <div className="rounded border border-gray-300 p-4 mb-4 w-full">
               <div className="flex flex-wrap">
                 <div className="w-full md:w-1/2 lg:w-1/3 mb-2 pr-2">
-                  <strong>IsAdmin:</strong> {userData.isAdmin.toString()}
+                  <strong>IsAdmin:</strong> {userData.IsAdmin.toString()}
                 </div>
                 <div className="w-full md:w-1/2 lg:w-1/3 mb-2 pr-2">
-                  <strong>Name:</strong> {userData.name}
+                  <strong>Name:</strong> {userData.Name}
                 </div>
                 <div className="w-full md:w-1/2 lg:w-1/3 mb-2 pr-2">
-                  <strong>Email:</strong> {userData.email}
+                  <strong>Email:</strong> {userData.Email}
                 </div>
                 <div className="w-full md:w-1/2 lg:w-1/3 mb-2 pr-2">
-                  <strong>SRN:</strong> {userData.srn}
+                  <strong>SRN:</strong> {userData.SRN ? userData.SRN : "Nil"}
                 </div>
                 <div className="w-full md:w-1/2 lg:w-1/3 mb-2 pr-2">
-                  <strong>Phone Number:</strong> {userData.phone_number}
+                  <strong>Phone Number:</strong> {userData.PhoneNumber}
                 </div>
                 <div className="w-full md:w-1/2 lg:w-1/3 mb-2 pr-2">
-                  <strong>DOB:</strong> {userData.dob}
+                  <strong>DOB:</strong> {userData.DOB}
                 </div>
                 <div className="w-full md:w-1/2 lg:w-1/3 mb-2 pr-2">
-                  <strong>Department ID:</strong> {userData.department_id}
+                  <strong>Department ID:</strong> {userData.DepartmentID}
                 </div>
                 <div className="w-full md:w-1/2 lg:w-1/3 mb-2 pr-2">
-                  <strong>Password:</strong> {userData.password}
+                  <strong>Password:</strong> {userData.Password}
                 </div>
               </div>
               <button
@@ -158,18 +242,22 @@ function Page({ params }: { params: { id: object } }) {
               </button>
             </div>
           )}
-          {!userData.isAdmin && (
+          {!userData.IsAdmin && (
             <div>
               <div className="mt-4">
                 <button
                   className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700"
-                  onClick={() => alert('Contribute button clicked')}
+                  onClick={() => {
+                    window.location.href = `/contribution/${userData.SRN}`;
+                  }}
                 >
                   Contribute
                 </button>
               </div>
               <div className="mt-4">
-                <h3 className="text-xl font-bold mb-2">Previous Contributions</h3>
+                <h3 className="text-xl font-bold mb-2">
+                  Previous Contributions
+                </h3>
                 <ul>
                   {contributions.map((contribution, index) => (
                     <li key={index}>{contribution}</li>
@@ -178,12 +266,12 @@ function Page({ params }: { params: { id: object } }) {
               </div>
             </div>
           )}
-          {userData.isAdmin && (
+          {userData.IsAdmin && (
             <>
               <div className="mt-4">
                 <button
                   className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700"
-                  onClick={() => alert('Contribute button clicked')}
+                  onClick={() => alert("Contribute button clicked")}
                 >
                   View All Contributions
                 </button>
@@ -194,7 +282,7 @@ function Page({ params }: { params: { id: object } }) {
 
         <div className="rounded border border-gray-300 p-4 mb-4 w-full lg:w-1/4">
           <h3 className="text-xl font-bold mb-2">User Description</h3>
-          <p>{userData.isAdmin ? 'Administrator' : 'Regular User'}</p>
+          <p>{userData.Desc}</p>
         </div>
       </motion.div>
       <br />

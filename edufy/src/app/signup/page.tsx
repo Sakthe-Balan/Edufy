@@ -11,6 +11,7 @@ const UserForm = () => {
   const [dob, setDOB] = useState("");
   const [department_id, setDepartmentID] = useState("");
   const [password, setPassword] = useState("");
+  const [Desc, setDesc] = useState("");
 
   const handleCheckboxChange = () => {
     setisAdmin(!isAdmin);
@@ -22,7 +23,7 @@ const UserForm = () => {
     e.preventDefault();
 
     try {
-      const requestBody = {
+      var requestBody = {
         isAdmin,
         name,
         email,
@@ -31,7 +32,9 @@ const UserForm = () => {
         dob,
         department_id,
         password,
+        Desc,
       };
+
       console.log(requestBody);
       const response = await fetch("http://localhost:9090/signup", {
         method: "POST",
@@ -70,7 +73,7 @@ const UserForm = () => {
               name="name"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="w-full p-2 border rounded-md"
+              className="w-full p-2 border rounded-md text-black"
             />
           </label>
         </div>
@@ -82,7 +85,7 @@ const UserForm = () => {
               name="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full p-2 border rounded-md"
+              className="w-full p-2 border rounded-md text-black"
             />
           </label>
         </div>
@@ -95,7 +98,7 @@ const UserForm = () => {
                 name="srn"
                 value={srn}
                 onChange={(e) => setSRN(e.target.value)}
-                className="w-full p-2 border rounded-md"
+                className="w-full p-2 border rounded-md text-black"
               />
             </label>
           </div>
@@ -108,7 +111,7 @@ const UserForm = () => {
               name="phone_number"
               value={phone_number}
               onChange={(e) => setPhoneNumber(e.target.value)}
-              className="w-full p-2 border rounded-md"
+              className="w-full p-2 border rounded-md text-black"
             />
           </label>
         </div>
@@ -120,7 +123,7 @@ const UserForm = () => {
               name="dob"
               value={dob}
               onChange={(e) => setDOB(e.target.value)}
-              className="w-full p-2 border rounded-md"
+              className="w-full p-2 border rounded-md text-black"
             />
           </label>
         </div>
@@ -132,7 +135,7 @@ const UserForm = () => {
               name="department_id"
               value={department_id}
               onChange={(e) => setDepartmentID(e.target.value)}
-              className="w-full p-2 border rounded-md"
+              className="w-full p-2 border rounded-md text-black"
             />
           </label>
         </div>
@@ -144,22 +147,23 @@ const UserForm = () => {
               name="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full p-2 border rounded-md"
+              className="w-full p-2 border rounded-md text-black"
+            />
+          </label>
+        </div>
+        <div className="mb-4">
+          <label>
+            Description:
+            <input
+              type="text"
+              name="description"
+              value={Desc}
+              onChange={(e) => setDesc(e.target.value)}
+              className="w-full p-2 border rounded-md text-black"
             />
           </label>
         </div>
         <div className="flex flex-row justify-between">
-          <div>
-            <button
-              type="submit"
-              className="text-white py-2 px-4 rounded-md cursor-pointer bg-blue-500"
-            >
-              SignUp
-            </button>
-            <a href="/login" className=" hover:underline cursor-pointer">
-              Login
-            </a>
-          </div>
           <label className="flex items-center">
             <input
               type="checkbox"
@@ -169,6 +173,16 @@ const UserForm = () => {
             />
             Admin
           </label>
+          <div>
+            <a href="/login" className=" hover:underline cursor-pointer">
+              <button
+                type="submit"
+                className="text-white py-2 px-4 rounded-md cursor-pointer bg-blue-500"
+              >
+                SignUp
+              </button>
+            </a>
+          </div>
         </div>
       </form>
 
