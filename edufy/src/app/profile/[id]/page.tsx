@@ -107,9 +107,6 @@ function Page({ params }: { params: { id: string } }) {
         console.error("Error during place:", error);
         alert("An error occurred during place");
       }
-    };
-
-    const ptDatas = async () => {
       try {
         const response = await fetch(
           "http://localhost:9090/getstudentuniversities",
@@ -139,7 +136,6 @@ function Page({ params }: { params: { id: string } }) {
 
     // Call fetchData function
     putDatas();
-    ptDatas();
   }, [userData]);
 
   const handleSaveClick = () => {

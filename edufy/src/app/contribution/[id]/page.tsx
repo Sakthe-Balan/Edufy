@@ -133,7 +133,7 @@ const MainForm = ({ params }: { params: { id: string } }) => {
                   value="summer"
                   checked={userData.iorp === "1"}
                   onChange={handleChange}
-                  className="mr-2"
+                  className="mr-2 text-black"
                 />
                 Summer Intern
               </label>
@@ -144,7 +144,7 @@ const MainForm = ({ params }: { params: { id: string } }) => {
                   value="placement"
                   checked={userData.iorp === "2"}
                   onChange={handleChange}
-                  className="ml-4"
+                  className="ml-4 text-black"
                 />
                 Placement
               </label>
@@ -160,7 +160,7 @@ const MainForm = ({ params }: { params: { id: string } }) => {
               name="company_name"
               value={userData.company_name}
               onChange={handleChange}
-              className="w-full p-2 border rounded-md"
+              className="w-full p-2 border rounded-md text-black"
             />
           </label>
         </div>
@@ -173,7 +173,7 @@ const MainForm = ({ params }: { params: { id: string } }) => {
               name="testexpr"
               value={userData.testexpr}
               onChange={handleChange}
-              className="w-full p-2 border rounded-md"
+              className="w-full p-2 border rounded-md text-black"
             />
           </label>
         </div>
@@ -186,6 +186,7 @@ const MainForm = ({ params }: { params: { id: string } }) => {
               name="selectedforint"
               checked={userData.selectedforint}
               onChange={() => handleCheckboxChange("selectedforint")}
+              className="text-black"
             />
           </label>
         </div>
@@ -200,7 +201,7 @@ const MainForm = ({ params }: { params: { id: string } }) => {
                   name="doi"
                   value={userData.doi}
                   onChange={handleChange}
-                  className="w-full p-2 border rounded-md"
+                  className="w-full p-2 border rounded-md text-black"
                 />
               </label>
             </div>
@@ -212,7 +213,7 @@ const MainForm = ({ params }: { params: { id: string } }) => {
                   name="intexp"
                   value={userData.intexp}
                   onChange={handleChange}
-                  className="w-full p-2 border rounded-md"
+                  className="w-full p-2 border rounded-md text-black"
                 />
               </label>
             </div>
@@ -224,7 +225,7 @@ const MainForm = ({ params }: { params: { id: string } }) => {
                   name="ctc"
                   value={userData.ctc}
                   onChange={handleChange}
-                  className="w-full p-2 border rounded-md"
+                  className="w-full p-2 border rounded-md text-black"
                 />
               </label>
             </div>
