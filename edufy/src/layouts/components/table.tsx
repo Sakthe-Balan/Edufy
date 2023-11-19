@@ -1,5 +1,5 @@
 // MyTable.js
-import React, { useState } from "react";
+import React from "react";
 import { useTable, useFilters } from "react-table";
 
 interface MyTableProps {
@@ -48,7 +48,7 @@ function MyTable({ data }: MyTableProps) {
   } = useTable({ columns, data }, useFilters);
 
   return (
-    <div className="h-400 w-full overflow-auto">
+    <div className="w-full overflow-x-auto max-w-screen-2xl ">
       <table
         {...getTableProps()}
         className="w-full border-collapse border border-gray-300"
@@ -59,7 +59,7 @@ function MyTable({ data }: MyTableProps) {
               {headerGroup.headers.map((column) => (
                 <th
                   {...column.getHeaderProps()}
-                  className="border-b bg-gray-200 p-2 text-center text-black justify-center"
+                  className="border-b bg-gray-200 p-1 text-center text-black justify-center" // Reduced padding to 1
                 >
                   {column.render("Header")}
                   <div>{column.canFilter ? column.render("Filter") : null}</div>
@@ -76,7 +76,7 @@ function MyTable({ data }: MyTableProps) {
                 {row.cells.map((cell) => (
                   <td
                     {...cell.getCellProps()}
-                    className="p-2  border-r border-gray-300 text-center"
+                    className="p-1 border-r border-gray-300 text-center" // Reduced padding to 1
                   >
                     {cell.render("Cell")}
                   </td>
