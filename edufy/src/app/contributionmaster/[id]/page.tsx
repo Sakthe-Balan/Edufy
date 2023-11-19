@@ -86,7 +86,7 @@ const Page = ({ params }: { params: { id: string } }) => {
                 name="uname"
                 value={userData.uname}
                 onChange={handleChange}
-                className="w-full p-2 border rounded-md"
+                className="w-full p-2 border rounded-md text-black"
               />
             </label>
           </div>
@@ -98,7 +98,7 @@ const Page = ({ params }: { params: { id: string } }) => {
                 name="pname"
                 value={userData.pname}
                 onChange={handleChange}
-                className="w-full p-2 border rounded-md"
+                className="w-full p-2 border rounded-md text-black"
               />
             </label>
           </div>
@@ -121,7 +121,7 @@ const Page = ({ params }: { params: { id: string } }) => {
                 name="desc"
                 value={userData.desc}
                 onChange={handleChange}
-                className="w-full p-2 border rounded-md"
+                className="w-full p-2 border rounded-md text-black"
               />
             </label>
           </div>
