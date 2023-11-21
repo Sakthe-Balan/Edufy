@@ -28,7 +28,7 @@ const LoginForm = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:9090/login", {
+      const response = await fetch("http://10.30.204.60:9090/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
