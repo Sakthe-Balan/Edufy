@@ -36,7 +36,7 @@ const UserForm = () => {
       };
 
       console.log(requestBody);
-      const response = await fetch("http://10.30.204.60:9090/signup", {
+      const response = await fetch("http://localhost:9090/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

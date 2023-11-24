@@ -41,7 +41,7 @@ function Page({ params }: { params: { id: string } }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://10.30.204.60:9090/getDetails", {
+        const response = await fetch("http://localhost:9090/getDetails", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -82,7 +82,7 @@ function Page({ params }: { params: { id: string } }) {
     const putDatas = async () => {
       try {
         const response = await fetch(
-          "http://10.30.204.60:9090/getstudentplacements",
+          "http://localhost:9090/getstudentplacements",
           {
             method: "POST",
             headers: {
@@ -107,7 +107,7 @@ function Page({ params }: { params: { id: string } }) {
       }
       try {
         const response = await fetch(
-          "http://10.30.204.60:9090/getstudentuniversities",
+          "http://localhost:9090/getstudentuniversities",
           {
             method: "POST",
             headers: {
@@ -134,7 +134,7 @@ function Page({ params }: { params: { id: string } }) {
 
     // Call fetchData function
     putDatas();
-  }, [userData,contributions]);
+  }, [userData]);
 
   const handleSaveClick = () => {
     console.log("Updated User Data:", userData);
@@ -142,7 +142,7 @@ function Page({ params }: { params: { id: string } }) {
     const putData = async () => {
       try {
         const response = await fetch(
-          "http://10.30.204.60:9090/updatestudentprofile",
+          "http://localhost:9090/updatestudentprofile",
           {
             method: "POST",
             headers: {

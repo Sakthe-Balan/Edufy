@@ -41,7 +41,7 @@ const Page = ({ params }: { params: { id: string } }) => {
     const putData = async () => {
       try {
         const response = await fetch(
-          "http://10.30.204.60:9090/addstudentmasters",
+          "http://localhost:9090/addstudentmasters",
           {
             method: "POST",
             headers: {

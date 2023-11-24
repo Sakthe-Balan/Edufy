@@ -76,14 +76,17 @@ function MyTable({ data }) {
   // Memoize columns outside the component unconditionally
   const columns = React.useMemo(
     () =>
-      Object.keys(data[0]).map((header) => ({
-        Header: header,
-        accessor: header,
-        Filter: DefaultColumnFilter,
-        filterFunction: (value) => value,
-      })),
+      data && data.length > 0
+        ? Object.keys(data[0]).map((header) => ({
+            Header: header,
+            accessor: header,
+            Filter: DefaultColumnFilter,
+            filterFunction: (value) => value,
+          }))
+        : [],
     [data]
   );
+  
 
   // Ensure data is defined
   if (!data || data.length === 0) {

@@ -31,7 +31,7 @@ function HomePage({ params }: { params: { id: string } }) {
 
     const getData = async () => {
       try {
-        const response = await fetch("http://10.30.204.60:9090" + path, {
+        const response = await fetch("http://localhost:9090" + path, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -62,7 +62,7 @@ function HomePage({ params }: { params: { id: string } }) {
 
   const handleFilterChange = async (filterEndpoint: string) => {
     try {
-      const response = await fetch("http://10.30.204.60:9090" + filterEndpoint, {
+      const response = await fetch("http://localhost:9090" + filterEndpoint, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -102,7 +102,7 @@ function HomePage({ params }: { params: { id: string } }) {
   const calculateSummaryData = async () => {
     try {
       const avgSalaryResponse = await fetch(
-        "http://10.30.204.60:9090/findavgsalary",
+        "http://localhost:9090/findavgsalary",
       );
       if (avgSalaryResponse.ok) {
         const avgSalaryData = await avgSalaryResponse.json();
@@ -115,7 +115,7 @@ function HomePage({ params }: { params: { id: string } }) {
       }
 
       const totalPlacedResponse = await fetch(
-        "http://10.30.204.60:9090/findtotalplaced",
+        "http://localhost:9090/findtotalplaced",
       );
       if (totalPlacedResponse.ok) {
         const totalPlacedData = await totalPlacedResponse.json();
@@ -128,7 +128,7 @@ function HomePage({ params }: { params: { id: string } }) {
       }
 
       const totalMastersResponse = await fetch(
-        "http://10.30.204.60:9090/findtotalmasterjoined",
+        "http://localhost:9090/findtotalmasterjoined",
       );
       if (totalMastersResponse.ok) {
         const totalMastersData = await totalMastersResponse.json();
@@ -172,10 +172,10 @@ function HomePage({ params }: { params: { id: string } }) {
               </button>
             </div>
 
-            <div className="border-2 p-4 rounded-md border-gray-200">
-              <h3 className="mb-2 text-left w-full">Filter</h3>
+          <div className="border-2 p-4 rounded-md border-gray-200">
+             <h3 className="mb-2 text-left w-full">Filter</h3>
               <div className="flex flex-row">
-                <div className="flex flex-row  ">
+               {(params.id=="1")&&(<> <div className="flex flex-row  ">
                   <input
                     className="ml-2  relative top-2"
                     type="radio"
@@ -215,7 +215,7 @@ function HomePage({ params }: { params: { id: string } }) {
                   >
                     Reset
                   </button>
-                </div>
+                </div></>)}
               </div>
             </div>
           </div>
