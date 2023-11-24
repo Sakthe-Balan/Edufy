@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import MyTable from "../../../layouts/components/table"; // Assuming the correct path
 
-function HomePage({ params }: { params: { id: string } }) {
+function HomePage({params} ) {
   const initialData = [
     { id: 1, name: "John", age: 25 },
     { id: 2, name: "Jane", age: 30 },
@@ -13,7 +13,7 @@ function HomePage({ params }: { params: { id: string } }) {
 
   const [originalData, setOriginalData] = useState(initialData);
   const [tableData, setTableData] = useState(originalData);
-  const [selectedFilter, setSelectedFilter] = useState<string | null>(null);
+  const [selectedFilter, setSelectedFilter] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [summaryData, setSummaryData] = useState({
     avgSalary: 0,
@@ -37,12 +37,23 @@ function HomePage({ params }: { params: { id: string } }) {
             "Content-Type": "application/json",
           },
         });
-
+    
         if (response.ok) {
           const data = await response.json();
-          console.log("successful retrieval:", data.data);
-          setTableData(data.data);
-          setOriginalData(data.data); // Update originalData as well
+    
+          // Stringify all values in the data
+          const stringifiedData = data.data.map((item) => {
+            const stringifiedItem = {};
+            for (const key in item) {
+              if( stringifiedItem[key]!=="CTC")
+              stringifiedItem[key] = String(item[key]);
+            }
+            return stringifiedItem;
+          });
+    
+          console.log("successful retrieval:", stringifiedData);
+          setTableData(stringifiedData);
+          setOriginalData(stringifiedData); // Update originalData as well
         } else {
           console.error("retrieval failed");
         }
@@ -51,6 +62,7 @@ function HomePage({ params }: { params: { id: string } }) {
         alert("An error occurred during retrieval");
       }
     };
+    
 
     getData();
   }, [params.id]);
@@ -60,7 +72,7 @@ function HomePage({ params }: { params: { id: string } }) {
     setSelectedFilter(null);
   };
 
-  const handleFilterChange = async (filterEndpoint: string) => {
+  const handleFilterChange = async (filterEndpoint) => {
     try {
       const response = await fetch("http://localhost:9090" + filterEndpoint, {
         method: "GET",
@@ -83,7 +95,9 @@ function HomePage({ params }: { params: { id: string } }) {
     }
   };
 
-  const handleRadioChange = (value: string) => {
+  const handleRadioChange = (value) => {
+     
+    // value=toString(value)
     switch (value) {
       case "ctc12":
         handleFilterChange("/tier1");
@@ -98,7 +112,7 @@ function HomePage({ params }: { params: { id: string } }) {
         break;
     }
   };
-
+  
   const calculateSummaryData = async () => {
     try {
       const avgSalaryResponse = await fetch(

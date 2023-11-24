@@ -1,3 +1,4 @@
+
 import config from "@/config/config.json";
 import { getListPage } from "@/lib/contentParser";
 import PageHeader from "@/partials/PageHeader";
@@ -60,7 +61,7 @@ const Contact = async () => {
                     rows={8}
                   ></textarea>
                 </div>
-                <button type="submit" className="btn btn-primary">
+                <button type="submit" className="btn btn-primary" >
                   Submit
                 </button>
               </form>
