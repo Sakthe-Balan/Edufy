@@ -236,6 +236,15 @@ function HomePage({params} ) {
         </div>
         <div className="flex-grow p-4 border border-gray-300 rounded-md">
           <MyTable data={tableData} />
+          <button
+                    className="ml-2 bg-blue-500 text-white px-2 py-1 rounded-md"
+                    onClick={()=>{
+                      var path=localStorage.getItem('path');
+                      window.location.href=`/profile/`+path;
+                    }}
+                  >
+                    Back
+            </button>
         </div>
       </div>
 

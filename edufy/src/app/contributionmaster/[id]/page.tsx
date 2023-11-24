@@ -136,6 +136,15 @@ const Page = ({ params }: { params: { id: string } }) => {
           </button>
         </div>
       </form>
+      <button
+                    className="ml-2 bg-blue-500 text-white px-2 py-1 rounded-md"
+                    onClick={()=>{
+                      var path=localStorage.getItem('path');
+                      window.location.href=`/profile/`+path;
+                    }}
+                  >
+                    Back
+            </button>
       <br />
       <br />
       <br />
