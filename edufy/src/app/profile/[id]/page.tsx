@@ -66,7 +66,7 @@ function Page({ params }: { params: { id: string } }) {
   
     // Call fetchData function
     fetchData();
-  }, [params.id]);
+  }, []);
   
   const [userData, setUserData] = useState(initialUserData);
   const [isEditing, setIsEditing] = useState(false);
@@ -79,62 +79,39 @@ function Page({ params }: { params: { id: string } }) {
   useEffect(() => {
     console.log(userData.SRN);
     setContributions([]);
-    const putDatas = async () => {
+  
+    const fetchData = async (url:string, body:object) => {
       try {
-        const response = await fetch(
-          "http://localhost:9090/getstudentplacements",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ srn: userData.SRN }),
+        const response = await fetch(url, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
           },
-        );
-
+          body: JSON.stringify(body),
+        });
+  
         if (response.ok) {
-          var dtas = await response.json();
-          console.log("successful place:", dtas.data);
-          setContributions([...contributions, JSON.stringify(dtas.data)]);
-          // Assuming you have a navigation function or component
-          // that handles the redirection
+          const data = await response.json();
+          console.log("Successful request:", data.data);
+          setContributions((prevContributions) => [...prevContributions, JSON.stringify(data.data)]);
         } else {
-          console.error("place er");
+          console.error("Request failed");
         }
       } catch (error) {
-        // console.error("Error during place:", error);
-        // alert("An error occurred during place");
-      }
-      try {
-        const response = await fetch(
-          "http://localhost:9090/getstudentuniversities",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ srn: userData.SRN }),
-          },
-        );
-
-        if (response.ok) {
-          var datass = await response.json();
-          console.log("successful mast:", datass.data);
-          setContributions([...contributions, JSON.stringify(datass.data)]);
-          // Assuming you have a navigation function or component
-          // that handles the redirection
-        } else {
-          console.error("update failed mast");
-        }
-      } catch (error) {
-        // console.error("Error during mast:", error);
-        // alert("An error occurred during mast");
+        console.error("Error during request:", error);
+        // Uncomment the line below if you want to alert on error
+        // alert("An error occurred during request");
       }
     };
-
-    // Call fetchData function
-    putDatas();
+  
+    // Use Promise.all for parallel API calls
+    Promise.all([
+      fetchData("http://localhost:9090/getstudentplacements", { srn: userData.SRN }),
+      fetchData("http://localhost:9090/getstudentuniversities", { srn: userData.SRN }),
+    ]);
+  
   }, [userData]);
+  
 
   const handleSaveClick = () => {
     console.log("Updated User Data:", userData);
@@ -365,9 +342,13 @@ function Page({ params }: { params: { id: string } }) {
                   Previous Contributions
                 </h3>
                 <ul>
-                  {contributions.map((contribution, index) => (
-                    <li key={index}>{contribution}</li>
-                  ))}
+                {contributions.map((contribution, index) => (
+      // Check if contribution array is not empty before rendering
+      contribution.length > 0 && (
+        <li key={index}>{JSON.stringify(contribution)}</li>
+      )
+    ))}
+
                 </ul>
               </div>
             </div>

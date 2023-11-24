@@ -54,7 +54,8 @@ const Page = ({ params }: { params: { id: string } }) => {
         if (response.ok) {
           var data = await response.json();
           console.log("successful updation:", data);
-          window.location.href = `/profile/${data.name} `;
+          var pat=localStorage.getItem("path");
+          window.location.href = `/profile/ `+pat;
           // Assuming you have a navigation function or component
           // that handles the redirection
         } else {
