@@ -102,8 +102,8 @@ function Page({ params }: { params: { id: string } }) {
           console.error("place er");
         }
       } catch (error) {
-        console.error("Error during place:", error);
-        alert("An error occurred during place");
+        // console.error("Error during place:", error);
+        // alert("An error occurred during place");
       }
       try {
         const response = await fetch(
@@ -127,8 +127,8 @@ function Page({ params }: { params: { id: string } }) {
           console.error("update failed mast");
         }
       } catch (error) {
-        console.error("Error during mast:", error);
-        alert("An error occurred during mast");
+        // console.error("Error during mast:", error);
+        // alert("An error occurred during mast");
       }
     };
 
